@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int            @id @default(autoincrement())
+  userName   String         @map("user_name") @db.VarChar(40)
+  email      String         @db.VarChar(40)
+  password   String         @db.VarChar(72)
+  isAdmin    Boolean        @default(false) @map("is_admin")
+  bio        String?        @db.Text
+  twitterUrl String?        @map("twitter_url") @db.VarChar(191)
+  isVerify   Boolean        @default(false) @map("is_verify")
+  createdAt  DateTime       @map("created_at") @db.Timestamp(0)
+  Wallets    Wallet[]
+  Nfts       Nft[]
+  history    history[]      @relation("creator")
+  sellers    history[]      @relation("seller")
+  buyers     history[]      @relation("buyer")
+  followeds  Relationship[] @relation("followed")
+  followers  Relationship[] @relation("follower")
+  Campaigns  Campaign[]
+
+  @@map("users")
+}
+
+model Wallet {
+  walletAddress String   @id @map("wallet_address")
+  userId        Int      @map("user_id")
+  user          User     @relation(fields: [userId], references: [id])
+  createdAt     DateTime @db.Timestamp(0)
+  Cryptos       Crypto[]
+  Nfts          Nft[]
+
+  @@map("wallets")
+}
+
+model TokenStandard {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique @db.VarChar(40)
+  Cryptos Crypto[]
+  Nfts    Nft[]
+
+  @@map("tokebstandards")
+}
+
+model Chain {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique @db.VarChar(40)
+  Cryptos Crypto[]
+  Nfts    Nft[]
+
+  @@map("chains")
+}
+
+model Crypto {
+  contractAddress String        @id @map("contract_address")
+  tokenStandardId Int           @map("token_standard_id")
+  tokenstandard   TokenStandard @relation(fields: [tokenStandardId], references: [id])
+  chainId         Int           @map("chain_id")
+  chain           Chain         @relation(fields: [chainId], references: [id])
+  walletAddress   String        @map("wallet_address")
+  wallet          Wallet        @relation(fields: [walletAddress], references: [walletAddress])
+  name            String        @db.VarChar(40)
+  shortName       String        @map("short_name") @db.VarChar(10)
+  balance         Decimal       @db.Decimal(65, 2)
+
+  @@map("cryptos")
+}
+
+model Nft {
+  id              Int              @id @default(autoincrement())
+  collectionId    Int              @map("collection_id")
+  collection      Collection       @relation(fields: [collectionId], references: [id])
+  walletAddress   String           @map("wallet_address")
+  wallet          Wallet           @relation(fields: [walletAddress], references: [walletAddress])
+  chainid         Int              @map("chain_id")
+  chain           Chain            @relation(fields: [chainid], references: [id])
+  creatorId       Int              @map("creator_id")
+  creator         User             @relation(fields: [creatorId], references: [id])
+  tokenStandardId Int              @map("token_standard_id")
+  tokenstandard   TokenStandard    @relation(fields: [tokenStandardId], references: [id])
+  tokenId         Int              @map("token_id")
+  name            String           @db.VarChar(40)
+  image           String
+  IsOnSale        Boolean          @default(false) @map("is_onsale")
+  IsMint          Boolean          @default(false) @map("is_mint")
+  createdAt       DateTime         @map("created_at") @db.Timestamp(0)
+  Traits          Trait[]
+  TraitAttributes TraitAttribute[]
+  SaleList        SaleList[]
+  history         history[]
+
+  @@map("nfts")
+}
+
+model Collection {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @map("user_id")
+  name        String    @db.VarChar(40)
+  description String
+  onMint      Boolean   @default(false) @map("on_mint")
+  isSoldout   Boolean   @default(false) @map("is_soldout")
+  createdAt   DateTime  @map("created_at") @db.Timestamp(0)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+  Nfts        Nft[]
+  Traits      Trait[]
+  history     history[]
+
+  @@map("collections")
+}
+
+model Trait {
+  id              Int              @id @default(autoincrement())
+  collectionId    Int              @map("collection_id")
+  collection      Collection       @relation(fields: [collectionId], references: [id])
+  nftId           Int              @map("nft_id")
+  nfts            Nft              @relation(fields: [nftId], references: [id])
+  name            String           @db.VarChar(40)
+  TraitAttributes TraitAttribute[]
+
+  @@map("traits")
+}
+
+model TraitAttribute {
+  id      Int    @id @default(autoincrement())
+  nftId   Int    @map("nft_id")
+  nft     Nft    @relation(fields: [nftId], references: [id])
+  traitId Int    @map("trait_id")
+  trait   Trait  @relation(fields: [traitId], references: [id])
+  name    String @db.VarChar(40)
+
+  @@map("trait_id_attributes")
+}
+
+model SaleList {
+  id        Int      @id @default(autoincrement())
+  nftId     Int      @map("nft_id")
+  nft       Nft      @relation(fields: [nftId], references: [id])
+  price     Decimal  @db.Decimal(65, 2)
+  createdAt DateTime @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  @@map("sale_list")
+}
+
+model history {
+  id              Int        @id @default(autoincrement())
+  nftId           Int        @map("nft_id")
+  nft             Nft        @relation(fields: [nftId], references: [id])
+  collectionId    Int        @map("collection_id")
+  collection      Collection @relation(fields: [collectionId], references: [id])
+  creatorId       Int        @map("creator_id")
+  creator         User       @relation("creator", fields: [creatorId], references: [id])
+  sellerId        Int        @map("seller_id")
+  seller          User       @relation("seller", fields: [sellerId], references: [id])
+  buyerId         Int        @map("buyer_id")
+  buyer           User       @relation("buyer", fields: [buyerId], references: [id])
+  price           Decimal    @db.Decimal(65, 2)
+  transectionDate DateTime   @map("transection_date") @db.Timestamp(0)
+  onsaledate      DateTime   @map("onsale_date") @db.DateTime(0)
+
+  @@map("history")
+}
+
+model Relationship {
+  id         Int      @id @default(autoincrement())
+  followedId Int      @map("followed_id") // this user follow someone
+  followed   User     @relation("followed", fields: [followedId], references: [id])
+  followerId Int      @map("follower_id") // someone follow this user
+  follower   User     @relation("follower", fields: [followerId], references: [id])
+  createdAt  DateTime @map("created_at") @db.Timestamp(0)
+
+  @@map("relationships")
+}
+
+model Campaign {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [id])
+  name        String   @db.VarChar(40)
+  image       String
+  description String
+  url         String
+  createdAt   DateTime @map("created_at") @db.Timestamp(0)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
+  isActive    Boolean  @default(true) @map("is_active")
+  expiredDate DateTime @map("expired_date") @db.Timestamp(0)
+
+  @@map("campaigns")
+}
