@@ -11,23 +11,25 @@ datasource db {
 }
 
 model User {
-  id         Int            @id @default(autoincrement())
-  userName   String         @map("user_name") @db.VarChar(40)
-  email      String         @db.VarChar(40)
-  password   String         @db.VarChar(72)
-  isAdmin    Boolean        @default(false) @map("is_admin")
-  bio        String?        @db.Text
-  twitterUrl String?        @map("twitter_url") @db.VarChar(191)
-  isVerify   Boolean        @default(false) @map("is_verify")
-  createdAt  DateTime       @map("created_at") @db.Timestamp(0)
-  Wallets    Wallet[]
-  Nfts       Nft[]
-  history    history[]      @relation("creator")
-  sellers    history[]      @relation("seller")
-  buyers     history[]      @relation("buyer")
-  followeds  Relationship[] @relation("followed")
-  followers  Relationship[] @relation("follower")
-  Campaigns  Campaign[]
+  id          Int            @id @default(autoincrement())
+  userName    String         @map("user_name") @db.VarChar(40)
+  email       String         @db.VarChar(40)
+  password    String         @db.VarChar(72)
+  isAdmin     Boolean        @default(false) @map("is_admin")
+  bio         String?        @db.Text
+  twitterUrl  String?        @map("twitter_url") @db.VarChar(191)
+  isVerify    Boolean        @default(false) @map("is_verify")
+  createdAt   DateTime       @map("created_at") @db.Timestamp(0)
+  Wallets     Wallet[]
+  Nfts        Nft[]
+  history     history[]      @relation("creator")
+  sellers     history[]      @relation("seller")
+  buyers      history[]      @relation("buyer")
+  followeds   Relationship[] @relation("followed")
+  followers   Relationship[] @relation("follower")
+  Campaigns   Campaign[]
+  Collectiona Collection[]
+  SaleLists    SaleList[]
 
   @@map("users")
 }
@@ -49,20 +51,24 @@ model TokenStandard {
   Cryptos Crypto[]
   Nfts    Nft[]
 
-  @@map("tokebstandards")
+  @@map("token_standards")
 }
 
 model Chain {
-  id      Int      @id @default(autoincrement())
-  name    String   @unique @db.VarChar(40)
-  Cryptos Crypto[]
-  Nfts    Nft[]
+  id               Int      @id @default(autoincrement())
+  name             String   @unique @db.VarChar(40)
+  rpcUrl           String   @map("rpc_url")
+  ChainId          Int      @map("chain_id")
+  currencySymbol   String   @db.VarChar(10)
+  blockExplorerUrl String   @map("block_explorer_url")
+  Cryptos          Crypto[]
+  Nfts             Nft[]
 
   @@map("chains")
 }
 
 model Crypto {
-  contractAddress String        @id @map("contract_address")
+  id              Int           @id @default(autoincrement())
   tokenStandardId Int           @map("token_standard_id")
   tokenstandard   TokenStandard @relation(fields: [tokenStandardId], references: [id])
   chainId         Int           @map("chain_id")
@@ -70,7 +76,6 @@ model Crypto {
   walletAddress   String        @map("wallet_address")
   wallet          Wallet        @relation(fields: [walletAddress], references: [walletAddress])
   name            String        @db.VarChar(40)
-  shortName       String        @map("short_name") @db.VarChar(10)
   balance         Decimal       @db.Decimal(65, 2)
 
   @@map("cryptos")
@@ -104,7 +109,8 @@ model Nft {
 
 model Collection {
   id          Int       @id @default(autoincrement())
-  userId      Int       @map("user_id")
+  creatorId   Int       @map("creator_id")
+  creator     User      @relation(fields: [creatorId], references: [id])
   name        String    @db.VarChar(40)
   description String
   onMint      Boolean   @default(false) @map("on_mint")
@@ -143,6 +149,8 @@ model TraitAttribute {
 
 model SaleList {
   id        Int      @id @default(autoincrement())
+  sellerId  Int      @map("seller_id")
+  seller    User     @relation(fields: [sellerId], references: [id])
   nftId     Int      @map("nft_id")
   nft       Nft      @relation(fields: [nftId], references: [id])
   price     Decimal  @db.Decimal(65, 2)
