@@ -1,7 +1,17 @@
 const express =require('express')
-const prisma = require("prisma")
 
 const app = express()
 
+require('dotenv').config()
 
-app.listen("8001", ()=> console.log("server is running on port: 8001"))
+app.use(express.json())
+
+
+
+
+
+
+const PORT = process.env.PORT
+
+
+app.listen(PORT, ()=> console.log("server is running on port: ", PORT))

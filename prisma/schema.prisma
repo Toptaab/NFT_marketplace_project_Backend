@@ -19,7 +19,7 @@ model User {
   bio         String?        @db.Text
   twitterUrl  String?        @map("twitter_url") @db.VarChar(191)
   isVerify    Boolean        @default(false) @map("is_verify")
-  createdAt   DateTime       @map("created_at") @db.Timestamp(0)
+  createdAt   DateTime       @default(now()) @map("created_at") @db.Timestamp(0)
   Wallets     Wallet[]
   Nfts        Nft[]
   history     history[]      @relation("creator")
@@ -29,7 +29,7 @@ model User {
   followers   Relationship[] @relation("follower")
   Campaigns   Campaign[]
   Collectiona Collection[]
-  SaleLists    SaleList[]
+  SaleLists   SaleList[]
 
   @@map("users")
 }
@@ -38,7 +38,7 @@ model Wallet {
   walletAddress String   @id @map("wallet_address")
   userId        Int      @map("user_id")
   user          User     @relation(fields: [userId], references: [id])
-  createdAt     DateTime @db.Timestamp(0)
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   Cryptos       Crypto[]
   Nfts          Nft[]
 
@@ -98,8 +98,7 @@ model Nft {
   image           String
   IsOnSale        Boolean          @default(false) @map("is_onsale")
   IsMint          Boolean          @default(false) @map("is_mint")
-  createdAt       DateTime         @map("created_at") @db.Timestamp(0)
-  Traits          Trait[]
+  createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamp(0)
   TraitAttributes TraitAttribute[]
   SaleList        SaleList[]
   history         history[]
@@ -115,7 +114,7 @@ model Collection {
   description String
   onMint      Boolean   @default(false) @map("on_mint")
   isSoldout   Boolean   @default(false) @map("is_soldout")
-  createdAt   DateTime  @map("created_at") @db.Timestamp(0)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
   Nfts        Nft[]
   Traits      Trait[]
@@ -128,8 +127,6 @@ model Trait {
   id              Int              @id @default(autoincrement())
   collectionId    Int              @map("collection_id")
   collection      Collection       @relation(fields: [collectionId], references: [id])
-  nftId           Int              @map("nft_id")
-  nfts            Nft              @relation(fields: [nftId], references: [id])
   name            String           @db.VarChar(40)
   TraitAttributes TraitAttribute[]
 
@@ -154,7 +151,7 @@ model SaleList {
   nftId     Int      @map("nft_id")
   nft       Nft      @relation(fields: [nftId], references: [id])
   price     Decimal  @db.Decimal(65, 2)
-  createdAt DateTime @map("created_at") @db.Timestamp(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
 
   @@map("sale_list")
@@ -185,7 +182,7 @@ model Relationship {
   followed   User     @relation("followed", fields: [followedId], references: [id])
   followerId Int      @map("follower_id") // someone follow this user
   follower   User     @relation("follower", fields: [followerId], references: [id])
-  createdAt  DateTime @map("created_at") @db.Timestamp(0)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp(0)
 
   @@map("relationships")
 }
@@ -198,7 +195,7 @@ model Campaign {
   image       String
   description String
   url         String
-  createdAt   DateTime @map("created_at") @db.Timestamp(0)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
   isActive    Boolean  @default(true) @map("is_active")
   expiredDate DateTime @map("expired_date") @db.Timestamp(0)

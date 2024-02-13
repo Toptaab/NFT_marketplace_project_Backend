@@ -1,10 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
-const prisma = require("prisma");
+const prisma = new PrismaClient()
 const bcrypt = require("bcryptjs");
 
 const hashPassword = bcrypt.hashSync("123456", 10);
 
-const adminData = [
+const userData = [
   {
     userName: "toptaab",
     email: "toptaab@gmail.com",
@@ -105,6 +105,12 @@ const crypto = [
 
 ];
 
-
-async function run() 
+async function run( ) {
+  await prisma.user.createMany({data:userData })
+  await prisma.tokenStandard.createMany({data:tokenStandard })
+  await prisma.chain.createMany({data:chain })
+  await prisma.wallet.createMany({data:wallet })
+  await prisma.crypto.createMany({data:crypto })
 }
+
+run()
