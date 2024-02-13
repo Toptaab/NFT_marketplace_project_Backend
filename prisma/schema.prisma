@@ -28,7 +28,7 @@ model User {
   followeds   Relationship[] @relation("followed")
   followers   Relationship[] @relation("follower")
   Campaigns   Campaign[]
-  Collectiona Collection[]
+  Collection Collection[]
   SaleLists   SaleList[]
 
   @@map("users")
