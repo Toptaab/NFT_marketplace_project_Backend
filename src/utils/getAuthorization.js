@@ -1,0 +1,1 @@
+module.exports = (input) => input.split(' ')[1]

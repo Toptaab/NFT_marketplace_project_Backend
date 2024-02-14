@@ -28,7 +28,7 @@ model User {
   followeds   Relationship[] @relation("followed")
   followers   Relationship[] @relation("follower")
   Campaigns   Campaign[]
-  Collection Collection[]
+  Collections Collection[]
   SaleLists   SaleList[]
 
   @@map("users")
@@ -55,14 +55,15 @@ model TokenStandard {
 }
 
 model Chain {
-  id               Int      @id @default(autoincrement())
-  name             String   @unique @db.VarChar(40)
-  rpcUrl           String   @map("rpc_url")
-  ChainId          Int      @map("chain_id")
-  currencySymbol   String   @db.VarChar(10)
-  blockExplorerUrl String   @map("block_explorer_url")
+  id               Int          @id @default(autoincrement())
+  name             String       @unique @db.VarChar(40)
+  rpcUrl           String       @map("rpc_url")
+  ChainId          Int          @map("chain_id")
+  currencySymbol   String       @db.VarChar(10) @map("currency_symbol")
+  blockExplorerUrl String       @map("block_explorer_url")
   Cryptos          Crypto[]
   Nfts             Nft[]
+  Collections      Collection[]
 
   @@map("chains")
 }
@@ -110,8 +111,11 @@ model Collection {
   id          Int       @id @default(autoincrement())
   creatorId   Int       @map("creator_id")
   creator     User      @relation(fields: [creatorId], references: [id])
+  chainid     Int       @map("chain_id") @default(1)
+  chain       Chain     @relation(fields: [chainid], references: [id])
+  price       Decimal   @db.Decimal(65, 2)
   name        String    @db.VarChar(40)
-  description String
+  description String?
   onMint      Boolean   @default(false) @map("on_mint")
   isSoldout   Boolean   @default(false) @map("is_soldout")
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(0)

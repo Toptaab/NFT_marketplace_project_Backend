@@ -18,14 +18,33 @@ exports.getUserByEmail = (input) =>
 exports.getUserByUserName = (input) =>
   prisma.user.findFirst({ where: { userName: input } });
 
-exports.getUserByuserId = (input) =>
+exports.getAllAssetsUserByUserId = (input) =>
   prisma.user.findFirst({
-    where: { userId: input },
-    include: { wallet: true,
-    nft:true,
-  history:true,
-seller:true,
-buyer:true,
-followers:true,
-Collectiona },
+    where: { id: input },
+    include: {
+      Wallets: { include: { Cryptos: { include: { chain: true } } } },
+      Nfts: { include: { TraitAttributes: { include: { trait: true } } } },
+      history: true,
+      sellers: true,
+      buyers: true,
+      followers: true,
+      Collections: true,
+      SaleLists: true,
+    },
   });
+
+exports.createWallet = (data) => prisma.wallet.create({data});
+
+  exports.getUserByUserId = (id) =>
+  prisma.user.findFirst({
+    where: {id},
+  });
+
+exports.updateUser = (id, data) =>
+  prisma.user.update({
+    data,
+    where: { id }
+  });
+
+
+  exports.getWalletByWalletAddress = (walletAddress) => prisma.wallet.findFirst({where:{walletAddress}})

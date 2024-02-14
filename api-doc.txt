@@ -18,8 +18,7 @@ RESPONSE
 
 
 
-
-POST auth/login login
+POST auth/login       login
 REQUESY BODY 
 {
       emaile*       string    email address
@@ -41,144 +40,24 @@ RESPONSE
     message         string    server error message
   }
 
+###################################################################################
 
-GET user/:userId
+## user ##
 
-
-
-
-
-
-POST collection/:userId/createcollection    created collection
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-BODY
-{
-   name         String       name of createcollection
-   description  string  
-   trait        array        array of traits object
-}
-RESPONSE
-    200 { 
-    collection  object 
-    trait       array
-        }
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error' }
-
-
-
-
-POST /assets/:userId/create  create NFT
+GET /user/:targetId       get all assets by targetId
 REQUEST
 HEADER
   AUTHORIZATION           Bearer [JWT]
-BODY
-{
-   collectionName  String
-   name            String 
-   trait           array      traits object {traits: trait's attribute}
-}
 RESPONSE
-  200 { 
-        nft         object 
-        triats      array     object of traits
-      }
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error' }
-
-
-
-PATCH collection/:userId/:collectionId/startmint          put collection on mint
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-REPONSE
-  200 { message: 'start mint collection'}
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error' }
-
-
-PATCH collection/:userId/:collectionId/mint       mintnft
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-REPONSE
-  200 { message: 'mint success'}
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error' }
-
-
-POST assets/:userId/:nftId/sell       put nft on sale list
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-BODY
-{
-   price  Decimal  number with  2digi
-}
-REPONSE
-  200 { message: 'sales success'}
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error' }
-
-
-  PATCH assets/:userId/:nftId/update      update price nft
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-BODY
-{
-   new price    Decimal  number with  2digi
-}
-REPONSE
-  200 { message: 'update success'}
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error' }
-
-
-
-
-DELETE assets/:userId/:nftId/cancel       cancel nft from sale list
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-REPONSE
-  200 { message: 'delete success'}
-  401 { message: 'unauthenticated' }
-  500 { message: 'internal server error'}
-
-
-
-POST assets/:userId/:nftId/buy      buy NFT from sale list
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-REPONSE
-  200 { message: 'buy success'}
-  401 { message: 'unauthenticated' }
-  402 { message: 'not enough balance' }
-  500 { message: 'internal server error'}
-
-
-PATCH user/:userId/profile     Update profile
-HEADER
-  AUTHORIZATION           Bearer [JWT]
-BODY
-{
-    userName?        String
-    email?           String
-    bio?             String
-    twitterUrl?      String
-}
-REPONSE
   200 
   {
-    user            object
-    accessToken     String
+    user      Object      include everything
   }
   401 { message: 'unauthenticated' }
-  405 { message: 'userName or Email is already in used'}
-  500 { message: 'internal server error'}
+  500 { message: 'internal server error' }
 
 
-
-
-POST user/:userId/connectwallet    connectwallet
+POST /user/wallet    connectwallet
 HEADER 
 AUTHORIZATION Bearer [JWT]
 BODY
@@ -192,3 +71,150 @@ RESPONSE
 }
 401  { message: 'unauthenticated' }
 500  { message: 'internal server errro' }
+
+
+
+PATCH /user    Update profile
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+BODY
+{
+    user        Object      new userprofile
+    accessToken object      new accessToken
+}
+REPONSE
+  200 
+  {
+    user            object
+  }
+  401 { message: 'unauthenticated' }
+  405 { message: 'userName or Email is already in used'}
+  500 { message: 'internal server error'}
+
+
+
+
+###################################################################################
+
+
+### collection  ###
+
+POST /collection         created new collection
+REQUEST
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+BODY
+{
+   name         String       text max 40 char
+   description  string       longtext
+   price        Decimal      number with 2 digit
+   trait        array        array of traits object with name
+}
+RESPONSE
+  200 
+  { 
+    collection  object       include array of traits
+  }
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+PATCH /collection/:collectionId/startmint         start mint event collection
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+REPONSE
+  200 { message: 'mint event start'}
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+PATCH /collection/:collectionId/mint          mintnft
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+REPONSE
+  200 
+  {
+    nft       Object      object of nft include trait and triat atribute
+  }
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+
+###################################################################################
+
+### asset ###
+
+
+POST asset/        create NFT
+REQUEST
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+BODY
+{
+   collectionName  String         collection name
+   name            String         nft name
+   trait           array          object traits with traits attribute
+}
+RESPONSE
+  200 { 
+        nft         object 
+        triats      array     object of traits
+      }
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+
+POST asset/:nftId        put nft on sale list
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+BODY
+{
+   price            Decimal     number with  2 digit
+}
+REPONSE
+  200 { message: 'sales success'}
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+  PATCH asset/:nftId      update price nft
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+BODY
+{
+   new price    Decimal  number with  2digi
+}
+REPONSE
+  200 { message: 'update success'}
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+DELETE asset/:nftId       cancel nft from sale list
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+REPONSE
+  200 { message: 'delete success'}
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error'}
+
+
+
+POST asset/:nftId/buy      buy NFT from sale list
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+REPONSE
+  200 { message: 'buy success'}
+  401 { message: 'unauthenticated' }
+  402 { message: 'not enough balance' }
+  500 { message: 'internal server error'}
+
+
+
+
+
+
+
+
