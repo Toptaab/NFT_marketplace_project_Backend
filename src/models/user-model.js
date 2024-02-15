@@ -33,18 +33,21 @@ exports.getAllAssetsUserByUserId = (input) =>
     },
   });
 
-exports.createWallet = (data) => prisma.wallet.create({data});
+exports.createWallet = (data) => prisma.wallet.create({ data });
 
-  exports.getUserByUserId = (id) =>
+exports.getUserByUserId = (id) =>
   prisma.user.findFirst({
-    where: {id},
+    where: { id },
   });
 
 exports.updateUser = (id, data) =>
   prisma.user.update({
     data,
-    where: { id }
+    where: { id },
   });
 
+exports.getWalletByWalletAddress = (walletAddress) =>
+  prisma.wallet.findFirst({ where: { walletAddress } });
 
-  exports.getWalletByWalletAddress = (walletAddress) => prisma.wallet.findFirst({where:{walletAddress}})
+exports.getWalletByUserId = (userId) =>
+  prisma.wallet.findFirst({ where: { userId } });

@@ -108,7 +108,7 @@ BODY
    name         String       text max 40 char
    description  string       longtext
    price        Decimal      number with 2 digit
-   trait        array        array of traits object with name
+   trait        array        array of traits object with key name {name : String}
 }
 RESPONSE
   200 
@@ -117,6 +117,27 @@ RESPONSE
   }
   401 { message: 'unauthenticated' }
   500 { message: 'internal server error' }
+
+
+Patch /:collectionId/image         form-data       postnew src and up date src
+REQUEST
+HEADER
+  AUTHORIZATION           Bearer [JWT]
+Form-Data
+{
+   image            path     file path
+}
+RESPONSE
+  200 
+  { 
+    collection  object       include array of traits
+  }
+  401 { message: 'unauthenticated' }
+  500 { message: 'internal server error' }
+
+
+
+
 
 
 PATCH /collection/:collectionId/startmint         start mint event collection
@@ -146,15 +167,15 @@ REPONSE
 ### asset ###
 
 
-POST asset/        create NFT
+POST asset/    create NFT
 REQUEST
 HEADER
   AUTHORIZATION           Bearer [JWT]
 BODY
 {
-   collectionName  String         collection name
-   name            String         nft name
-   trait           array          object traits with traits attribute
+   collectionId           String         collection name
+   name                   String         nft name
+   TraitAttributes        array Object   TraitAttributes:[ {traitId: Number ||String  , name: String  } , { }]
 }
 RESPONSE
   200 { 

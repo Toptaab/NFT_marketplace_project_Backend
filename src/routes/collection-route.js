@@ -3,11 +3,13 @@ const router = express.Router()
 const authenticate = require('../middlewares/authorization')
 const collectionController = require('../controllers/collection-controller')
 const { createCollectionValidate } = require('../middlewares/validators/validate-collection')
+const multerService = require('../services/multerImage-service')
 
 
-router.post('/' ,createCollectionValidate ,authenticate , collectionController.createdCollectionController)
-router.patch('/:collectionId/startmint',authenticate )
-router.patch('/:collectionId/mint',authenticate)
+router.post('/' , createCollectionValidate, authenticate , collectionController.createdCollectionController )
+router.patch('/:collectionId/image' ,multerService.single('image'),authenticate    ,collectionController.updateCollectionImageController )
+router.patch('/:collectionId/startmint',authenticate,collectionController.startMintCollectionController  )
+router.patch('/:collectionId/mint',authenticate, collectionController.mintNftFromCollectionController)
 
 
 module.exports = router

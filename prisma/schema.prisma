@@ -59,7 +59,7 @@ model Chain {
   name             String       @unique @db.VarChar(40)
   rpcUrl           String       @map("rpc_url")
   ChainId          Int          @map("chain_id")
-  currencySymbol   String       @db.VarChar(10) @map("currency_symbol")
+  currencySymbol   String       @map("currency_symbol") @db.VarChar(10)
   blockExplorerUrl String       @map("block_explorer_url")
   Cryptos          Crypto[]
   Nfts             Nft[]
@@ -88,17 +88,17 @@ model Nft {
   collection      Collection       @relation(fields: [collectionId], references: [id])
   walletAddress   String           @map("wallet_address")
   wallet          Wallet           @relation(fields: [walletAddress], references: [walletAddress])
-  chainid         Int              @map("chain_id")
-  chain           Chain            @relation(fields: [chainid], references: [id])
+  chainId         Int              @map("chain_id")
+  chain           Chain            @relation(fields: [chainId], references: [id])
   creatorId       Int              @map("creator_id")
   creator         User             @relation(fields: [creatorId], references: [id])
-  tokenStandardId Int              @map("token_standard_id")
+  tokenStandardId Int              @map("token_standard_id") @default(1)
   tokenstandard   TokenStandard    @relation(fields: [tokenStandardId], references: [id])
   tokenId         Int              @map("token_id")
   name            String           @db.VarChar(40)
-  image           String
-  IsOnSale        Boolean          @default(false) @map("is_onsale")
-  IsMint          Boolean          @default(false) @map("is_mint")
+  image           String?
+  isOnSale        Boolean          @default(false) @map("is_onsale")
+  isMint          Boolean          @default(false) @map("is_mint")
   createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamp(0)
   TraitAttributes TraitAttribute[]
   SaleList        SaleList[]
@@ -111,8 +111,9 @@ model Collection {
   id          Int       @id @default(autoincrement())
   creatorId   Int       @map("creator_id")
   creator     User      @relation(fields: [creatorId], references: [id])
-  chainid     Int       @map("chain_id") @default(1)
-  chain       Chain     @relation(fields: [chainid], references: [id])
+  chainId     Int       @default(1) @map("chain_id")
+  chain       Chain     @relation(fields: [chainId], references: [id])
+  image       String?
   price       Decimal   @db.Decimal(65, 2)
   name        String    @db.VarChar(40)
   description String?
