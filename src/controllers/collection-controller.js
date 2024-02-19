@@ -25,7 +25,7 @@ exports.updateCollectionImageController = catchError(
     if (!checkCollectionOwner) {
       createError(403, "Unauthorized on this conllection");
     }
-    req.body.image = await uploadService.uploadCloud(req.file.path)
+    req.body.image = await uploadService.uploadCloud(req.file.path,"NFT-marketplace/collections")
 
     await collectionModel.updateCollectionById(+req.params.collectionId,req.body.image)
 

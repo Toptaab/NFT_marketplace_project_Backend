@@ -33,7 +33,7 @@ exports.updateNftImage = catchError(async (req, res, next) => {
   if (!checkNftOwner) {
     createError(403, "Unauthorized on this NFT");
   }
-  req.body.image = await uploadService.uploadCloud(req.file.path);
+  req.body.image = await uploadService.uploadCloud(req.file.path,"NFT-marketplace/Nfts");
 
   await assetModel.updateNftImage(+req.params.nftId, req.body.image);
 

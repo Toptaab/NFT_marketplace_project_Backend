@@ -1,5 +1,7 @@
 const express =require('express')
 
+const cors = require('cors')
+
 const app = express()
 
 require('dotenv').config()
@@ -10,6 +12,7 @@ const assetRouter = require('./routes/asset-route')
 const collectionRouter = require('./routes/collection-route')
 const errorHandler = require('./middlewares/error')
 
+app.use(cors());
 app.use(express.json())
 
 

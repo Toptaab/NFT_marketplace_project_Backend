@@ -1,10 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
 
 const hashPassword = bcrypt.hashSync("123456", 10);
 
-console.log(hashPassword)
+console.log(hashPassword);
 
 const userData = [
   {
@@ -81,21 +81,21 @@ const crypto = [
     chainId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     name: "Ethereum",
-    balance: 100.55,
+    balance: 730.55,
   },
   {
     tokenStandardId: 1,
     chainId: 1,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     name: "Ethereum",
-    balance: 200.55,
+    balance: 520.55,
   },
   {
     tokenStandardId: 1,
     chainId: 1,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     name: "Ethereum",
-    balance: 50.35,
+    balance: 350.35,
   },
   {
     tokenStandardId: 1,
@@ -104,15 +104,408 @@ const crypto = [
     name: "Ethereum",
     balance: 20.25,
   },
-
 ];
 
-async function run( ) {
-  await prisma.user.createMany({data:userData })
-  await prisma.tokenStandard.createMany({data:tokenStandard })
-  await prisma.chain.createMany({data:chain })
-  await prisma.wallet.createMany({data:wallet })
-  await prisma.crypto.createMany({data:crypto })
+const collections = [
+  {
+    name: "spacepunk",
+    price: "7.32",
+    chainId: 1,
+    creatorId: 1,
+    description: "Space Punk the most popular NFT",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbWJWYnRRQWNrU3ozUlZ4REJtYjlTckNHbzlvbkZDUHhuYXMyVlA3RUhDcHA2",
+  },
+  {
+    name: "space rider",
+    price: "5.34",
+    chainId: 1,
+    creatorId: 2,
+    description: "space rider the most popular NFT",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL0h1cHpaVGZaSTg1ZEgtVmZqcHhMb3ppazhJdVMxdzRiT3dCaEpSNGVpQnRXcU5ZYzhnSWFlUXZwN011bzl1RzNYZGhOM0NqX01GWEhjTjQ4dWNiNWljRnhTWGM2Z1dfZDU0SnBfZz1zMTIw",
+  },
+  {
+    name: "Aliens Space Club",
+    price: "10.13",
+    chainId: 1,
+    creatorId: 3,
+    description: "Aliens Space Club the most popular NFT",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbWQzejR4Z0c0UHpHU3JXa1FaakxRcjlwUUFVa3lKdUJUUThtbmFOcUp1Tk5r",
+  },
+];
+
+const tratis = [
+  {
+    collectionId: 1,
+    name: "head",
+  },
+  {
+    collectionId: 1,
+    name: "body",
+  },
+  {
+    collectionId: 1,
+    name: "foot",
+  },
+  {
+    collectionId: 2,
+    name: "face",
+  },
+  {
+    collectionId: 2,
+    name: "shirt",
+  },
+  {
+    collectionId: 3,
+    name: "skin",
+  },
+  {
+    collectionId: 3,
+    name: "shirt",
+  },
+];
+
+const nfts = [
+  {
+    collectionId: 1,
+    name: "top 1st NFT",
+    tokenId: 1,
+    creatorId: 1,
+    walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_image_preview/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbVRSY1JYbzZjWEJ5akhZSFRWeEdwYWc2dnBvY3JHM3J4alBDOVB4S0FBclI5LzYxNTkucG5n",
+  },
+  {
+    collectionId: 1,
+    name: "top 2nd NFT",
+    tokenId: 1,
+    creatorId: 1,
+    walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_image_preview/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbVRSY1JYbzZjWEJ5akhZSFRWeEdwYWc2dnBvY3JHM3J4alBDOVB4S0FBclI5LzUwNTUucG5n",
+  },
+  {
+    collectionId: 1,
+    name: "top 3rd NFT",
+    tokenId: 1,
+    creatorId: 1,
+    walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_image_preview/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbVRSY1JYbzZjWEJ5akhZSFRWeEdwYWc2dnBvY3JHM3J4alBDOVB4S0FBclI5LzQyMjYucG5n",
+  },
+  {
+    collectionId: 1,
+    name: "top 4th NFT",
+    tokenId: 1,
+    creatorId: 1,
+    walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_image_preview/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbVRSY1JYbzZjWEJ5akhZSFRWeEdwYWc2dnBvY3JHM3J4alBDOVB4S0FBclI5LzI0OTQucG5n",
+  },
+  {
+    collectionId: 1,
+    name: "top 5th NFT",
+    tokenId: 1,
+    creatorId: 1,
+    walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
+    image:
+      "https://assets.raribleuserdata.com/prod/v1/image/t_image_preview/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbVRSY1JYbzZjWEJ5akhZSFRWeEdwYWc2dnBvY3JHM3J4alBDOVB4S0FBclI5LzMyODAucG5n",
+  },
+  {
+    collectionId: 2,
+    name: "first 1th NFT",
+    tokenId: 1,
+    creatorId: 2,
+    walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
+    image:
+      "https://lh3.googleusercontent.com/76FyrmcWat4ciAHN81AihSdYknMWp0gIEFtddEcwT1FrAAv2bflfz07n3ae0DWBqQUO12yptasp_Oc8djoWzH8E0QjT8SFImTw=s400",
+    
+  },
+  {
+    collectionId: 2,
+    name: "first 2nd NFT",
+    tokenId: 1,
+    creatorId: 2,
+    walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
+    image:
+      "https://lh3.googleusercontent.com/nVPIiTYTGSUEXs1Ux31-AL8WaCbhrPP1hl8tAQDWK2ddo_XTkSXexNQ0tMxDjffCZdgjdibBasMeN1ImjcOtBd_zqujT_bxhAHI=s400",
+  
+  },
+  {
+    collectionId: 2,
+    name: "first 3rd NFT",
+    tokenId: 1,
+    creatorId: 2,
+    walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
+    image:
+      "https://lh3.googleusercontent.com/9r3OyuyaccUIQWZbwP8Jo3q-DCO8EiZZKqWN_Y5arwvXcOLJKMdwVPqfWrGURi9XXF0LBTlL0BKp7RckctbDKsvq2rIwNwA0RvE=s400",
+    
+  },
+  {
+    collectionId: 2,
+    name: "first 4th NFT",
+    tokenId: 1,
+    creatorId: 2,
+    walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
+    image:
+      "https://lh3.googleusercontent.com/1PNX78rW3yoWvQlBt7UmbjJQnzRamczGEX7EDiTLIxCULq7LET7uVXD9o4QsAM9BqDxl9e6onEWt8LKyonWIVcWTTBLO_uDH6w=s400",
+  
+  },
+  {
+    collectionId: 2,
+    name: "first 5th NFT",
+    tokenId: 1,
+    creatorId: 2,
+    walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
+    image:
+      "https://lh3.googleusercontent.com/GgybO2FShzielrew9Jb5jwLSH-jlDMRQLhmuNA03OUbqOadDMIFbsODB1Sz8doCPJQTyHioekbWa6UNN1xlesqVOYzKcvqe0Pqc=s400",
+  },
+  {
+    collectionId: 3,
+    name: "user1 1th NFT",
+    tokenId: 1,
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://lh3.googleusercontent.com/ahSllBfrCmpTr1Y4oa0vUgYyQjFx6OEnzKQGhdPdn99DYl_D1SPgaR8UCxOQaZJFyB0e6b-BaEcDi1U-N6ZqvvxoidzQGcl8OE8=s400",
+  
+  },
+  {
+    collectionId: 3,
+    name: "user1 2nd NFT",
+    tokenId: 1,
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://lh3.googleusercontent.com/PL_FRNjYAuRI0X2ZaWFb3ljc7ZIGdnSb83H5rS3xDbQFOF9_o-ZWQ830YGYlmfYE-q3OMErykoYFNZFK-IPg0lh2dyyKbjeZdg=s400",
+    
+  },
+  {
+    collectionId: 3,
+    name: "user1 3rd NFT",
+    tokenId: 1,
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://lh3.googleusercontent.com/GFJ7WX6QXXizACZBov1kQJkC0QJWe-27jRJdZUn5Qx6mE7GTXC98RzAvSP_AaAJpEF40auHK9lLGqnAnsgDk6QVUZh5jDBtxT-l0=s400",
+  
+  },
+  {
+    collectionId: 3,
+    name: "user1 4th NFT",
+    tokenId: 1,
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://lh3.googleusercontent.com/Rkh6iCODTijhusaREWQ_aOdwb2N-qjr-PR_sRsRGWxGzT9BMXxXr_yPbzDTpo1hk4ziSQR0ZSKskzLs1nN-015-W4gHHDfbJvA=s400",
+  
+  },
+  {
+    collectionId: 3,
+    name: "user1 5th NFT",
+    tokenId: 1,
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://lh3.googleusercontent.com/He1YsG_OojwGiQv_K6zwytUIiWbiuoLO9wMhE9C2byQT3hEK7SxNvZCn8SBbfykdUIIPwPw8CB1So7CGTjzzgTWJlL5x8zqB6iOt=s400",
+  },
+];
+
+const TraitAttribute = [
+  {
+    nftId: 1,
+    traitId: 1,
+    name: "red head",
+  },
+  {
+    nftId: 1,
+    traitId: 2,
+    name: "blue body",
+  },
+  {
+    nftId: 1,
+    traitId: 3,
+    name: "green foot",
+  },
+  {
+    nftId: 2,
+    traitId: 1,
+    name: "blue head",
+  },
+  {
+    nftId: 2,
+    traitId: 2,
+    name: "red body",
+  },
+  {
+    nftId: 2,
+    traitId: 3,
+    name: "green foot",
+  },
+  {
+    nftId: 3,
+    traitId: 1,
+    name: "red head",
+  },
+  {
+    nftId: 3,
+    traitId: 2,
+    name: "blue body",
+  },
+  {
+    nftId: 3,
+    traitId: 3,
+    name: "red foot",
+  },
+  {
+    nftId: 4,
+    traitId: 1,
+    name: "red head",
+  },
+  {
+    nftId: 4,
+    traitId: 2,
+    name: "blue body",
+  },
+  {
+    nftId: 4,
+    traitId: 3,
+    name: "red foot",
+  },
+  {
+    nftId: 5,
+    traitId: 1,
+    name: "blue head",
+  },
+  {
+    nftId: 5,
+    traitId: 2,
+    name: "green body",
+  },
+  {
+    nftId: 5,
+    traitId: 3,
+    name: "blue foot",
+  },
+  {
+    nftId: 6,
+    traitId: 4,
+    name: "blue face",
+  },
+  {
+    nftId: 6,
+    traitId: 5,
+    name: "green shirt",
+  },
+  {
+    nftId: 7,
+    traitId: 4,
+    name: "red face",
+  },
+  {
+    nftId: 7,
+    traitId: 5,
+    name: "blue shirt",
+  },
+  {
+    nftId: 8,
+    traitId: 4,
+    name: "blue face",
+  },
+  {
+    nftId: 8,
+    traitId: 5,
+    name: "blue shirt",
+  },
+  {
+    nftId: 9,
+    traitId: 4,
+    name: "red face",
+  },
+  {
+    nftId: 9,
+    traitId: 5,
+    name: "red shirt",
+  },
+  {
+    nftId: 10,
+    traitId: 4,
+    name: "red face",
+  },
+  {
+    nftId: 10,
+    traitId: 5,
+    name: "red shirt",
+  },
+  {
+    nftId: 11,
+    traitId: 6,
+    name: "red skin",
+  },
+  {
+    nftId: 11,
+    traitId: 7,
+    name: "red shirt",
+  },
+  {
+    nftId: 12,
+    traitId: 6,
+    name: "blue skin",
+  },
+  {
+    nftId: 12,
+    traitId: 7,
+    name: "red shirt",
+  },
+  {
+    nftId: 13,
+    traitId: 6,
+    name: "blue skin",
+  },
+  {
+    nftId: 13,
+    traitId: 7,
+    name: "green shirt",
+  },
+  {
+    nftId: 14,
+    traitId: 6,
+    name: "green skin",
+  },
+  {
+    nftId: 14,
+    traitId: 7,
+    name: "green shirt",
+  },
+  {
+    nftId: 15,
+    traitId: 6,
+    name: "red skin",
+  },
+  {
+    nftId: 15,
+    traitId: 7,
+    name: "red shirt",
+  },
+]
+
+
+
+
+async function run() {
+  await prisma.user.createMany({ data: userData });
+  await prisma.tokenStandard.createMany({ data: tokenStandard });
+  await prisma.chain.createMany({ data: chain });
+  await prisma.wallet.createMany({ data: wallet });
+  await prisma.crypto.createMany({ data: crypto });
+  await prisma.collection.createMany({ data: collections });
+  await prisma.trait.createMany({ data: tratis });
+  await prisma.nft.createMany({ data: nfts });
+  await prisma.traitAttribute.createMany({data:TraitAttribute})
+
+  
 }
 
-run()
+run();

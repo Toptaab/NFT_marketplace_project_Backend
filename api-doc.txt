@@ -3,7 +3,7 @@ POST auth/register   register a new user
 REQUEST BODY
 {
   userName*         string    user first name
-  emaile*           string    email address
+  email*           string    email address
   password*         string    password must contain only alphabet
   confirmPassword*  string    confirm password must match a password
 }
@@ -21,7 +21,7 @@ RESPONSE
 POST auth/login       login
 REQUESY BODY 
 {
-      emaile*       string    email address
+      email*       string    email address
     password*       string    password must contain only alphabet
 }
 RESPONSE
@@ -80,7 +80,7 @@ HEADER
 BODY
 {
     user        Object      new userprofile
-    accessToken object      new accessToken
+    
 }
 REPONSE
   200 

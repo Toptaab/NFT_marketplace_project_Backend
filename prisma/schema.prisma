@@ -88,7 +88,7 @@ model Nft {
   collection      Collection       @relation(fields: [collectionId], references: [id])
   walletAddress   String           @map("wallet_address")
   wallet          Wallet           @relation(fields: [walletAddress], references: [walletAddress])
-  chainId         Int              @map("chain_id")
+  chainId         Int              @map("chain_id") @default(1)
   chain           Chain            @relation(fields: [chainId], references: [id])
   creatorId       Int              @map("creator_id")
   creator         User             @relation(fields: [creatorId], references: [id])
@@ -113,7 +113,7 @@ model Collection {
   creator     User      @relation(fields: [creatorId], references: [id])
   chainId     Int       @default(1) @map("chain_id")
   chain       Chain     @relation(fields: [chainId], references: [id])
-  image       String?
+  image       String?   @db.LongText
   price       Decimal   @db.Decimal(65, 2)
   name        String    @db.VarChar(40)
   description String?

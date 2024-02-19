@@ -2,7 +2,6 @@ const catchError = require("../utils/catch-error");
 const hashService = require("../services/hash-service");
 const userModel = require("../models/user-model");
 const createError = require("../utils/createError");
-const jwtService = require("../services/jwt-servise");
 
 exports.getAllAssetsController = catchError(async (req, res, next) => {
   const result = await userModel.getAllAssetsUserByUserId(+req.params.targetId);
@@ -22,7 +21,6 @@ exports.createWalletController = catchError(async (req, res, next) => {
 });
 
 exports.updateUserPofileController = catchError(async (req, res, next) => {
-
   if (req.body.userName) {
     const existName = await userModel.getUserByUserName(req.body.userName);
     if (existName) {
@@ -55,12 +53,9 @@ exports.updateUserPofileController = catchError(async (req, res, next) => {
   delete req.body.userId;
   delete req.body.user;
 
-
   const result = await userModel.updateUser(user.id, req.body);
 
   delete result.password;
-
-  result.accessToken = jwtService.sign(result);
 
   res.status(200).json(result);
 });

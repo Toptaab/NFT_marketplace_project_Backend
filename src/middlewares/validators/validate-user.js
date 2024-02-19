@@ -18,6 +18,9 @@ const updateProfileSchema = Joi.object({
         "password must be at least 6 characters and contain only alphabet and number",
       "any.required": "password is required",
     }),
+  bio: Joi.string(),
+  twitterUrl: Joi.string()
+
 });
 
 exports.validateUpdateProfile = validate(updateProfileSchema)
