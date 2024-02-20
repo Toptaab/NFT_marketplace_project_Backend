@@ -1,5 +1,10 @@
 const prisma = require("../api");
 
+exports.getAllColletion = () => prisma.collection.findMany({include: {Nfts: {include: {SaleList: true}}}})
+
+exports.getCollectionByUserId = (creatorId) =>  prisma.collection.findMany({where:{creatorId},include:{Traits:true}})
+
+
 exports.getCollectionNameByName = (name) =>
   prisma.collection.findFirst({ where: { name } });
 

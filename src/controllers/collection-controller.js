@@ -4,6 +4,21 @@ const createError = require("../utils/createError");
 const uploadService = require('../services/uploadCloud-service')
 const fs = require('fs');
 
+exports.getAllCollectionController = catchError(async (req,res,next) => {
+ const result = await collectionModel.getAllColletion()
+
+res.status(200).json(result)
+})
+
+exports.getCollectionByUserIdController = catchError(async (req,res,next) => {
+  console.log(req.body)
+const result = await collectionModel.getCollectionByUserId(req.body.userId)
+
+
+  res.status(200).json(result)
+})
+
+
 exports.createdCollectionController = catchError(async (req, res, next) => {
   const existCollectionName = await collectionModel.getCollectionNameByName(
     req.body.name

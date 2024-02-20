@@ -6,6 +6,16 @@ const collectionModel = require("../models/collection-model");
 const uploadService = require("../services/uploadCloud-service");
 const fs = require("fs");
 
+
+exports.getAllNftController = catchError(async (req,res,next) => {
+  console.log(req.params.assetId)
+
+  const result = await assetModel.getNftByNftId(+req.params.assetId)
+
+
+  res.status(200).json(result)
+})
+
 exports.createNft = catchError(async (req, res, next) => {
   const { walletAddress, userId } = await userModel.getWalletByUserId(
     req.body.userId
