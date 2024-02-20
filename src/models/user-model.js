@@ -23,13 +23,12 @@ exports.getAllAssetsUserByUserId = (input) =>
     where: { id: input },
     include: {
       Wallets: { include: { Cryptos: { include: { chain: true } } } },
-      Nfts: { include: { TraitAttributes: { include: { trait: true } } } },
+      Nfts: true,
       history: true,
       sellers: true,
       buyers: true,
       followers: true,
-      Collections: true,
-      SaleLists: true,
+      Collections: {include: {Nfts: {include: {SaleList: true}}}},
     },
   });
 

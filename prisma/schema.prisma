@@ -15,6 +15,7 @@ model User {
   userName    String         @map("user_name") @db.VarChar(40)
   email       String         @db.VarChar(40)
   password    String         @db.VarChar(72)
+  image       String?
   isAdmin     Boolean        @default(false) @map("is_admin")
   bio         String?        @db.Text
   twitterUrl  String?        @map("twitter_url") @db.VarChar(191)
