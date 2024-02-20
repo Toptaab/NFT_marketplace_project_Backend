@@ -88,11 +88,11 @@ model Nft {
   collection      Collection       @relation(fields: [collectionId], references: [id])
   walletAddress   String           @map("wallet_address")
   wallet          Wallet           @relation(fields: [walletAddress], references: [walletAddress])
-  chainId         Int              @map("chain_id") @default(1)
+  chainId         Int              @default(1) @map("chain_id")
   chain           Chain            @relation(fields: [chainId], references: [id])
   creatorId       Int              @map("creator_id")
   creator         User             @relation(fields: [creatorId], references: [id])
-  tokenStandardId Int              @map("token_standard_id") @default(1)
+  tokenStandardId Int              @default(1) @map("token_standard_id")
   tokenstandard   TokenStandard    @relation(fields: [tokenStandardId], references: [id])
   tokenId         Int              @map("token_id")
   name            String           @db.VarChar(40)
@@ -107,12 +107,22 @@ model Nft {
   @@map("nfts")
 }
 
+model Category {
+  id         Int          @id @default(autoincrement())
+  name       String
+  Collection Collection[]
+
+  @@map("catagory")
+}
+
 model Collection {
   id          Int       @id @default(autoincrement())
   creatorId   Int       @map("creator_id")
   creator     User      @relation(fields: [creatorId], references: [id])
   chainId     Int       @default(1) @map("chain_id")
   chain       Chain     @relation(fields: [chainId], references: [id])
+  categoryId  Int       @map("category_id")
+  category    Category  @relation(fields: [categoryId], references: [id])
   image       String?   @db.LongText
   price       Decimal   @db.Decimal(65, 2)
   name        String    @db.VarChar(40)
@@ -175,8 +185,7 @@ model history {
   buyerId         Int        @map("buyer_id")
   buyer           User       @relation("buyer", fields: [buyerId], references: [id])
   price           Decimal    @db.Decimal(65, 2)
-  transectionDate DateTime   @map("transection_date") @db.Timestamp(0)
-  onsaledate      DateTime   @map("onsale_date") @db.DateTime(0)
+  transectionDate DateTime   @default(now()) @map("transection_date") @db.Timestamp(0)
 
   @@map("history")
 }
