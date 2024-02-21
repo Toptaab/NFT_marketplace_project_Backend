@@ -30,7 +30,7 @@ exports.getAllAssetsUserByUserId = (input) =>
       history: true,
       sellers: true,
       buyers: true,
-      followers: true,
+      Relationship: true,
       Collections: {include: {Nfts: {include: {SaleList: true}}}},
     },
   });

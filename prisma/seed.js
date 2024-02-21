@@ -595,16 +595,16 @@ const history = [
 
 const relationship = [
   {
-    followedId: 1,
+    userId: 1,
     followerId: 2,
   },
   {
-    followedId: 2,
-    followerId: 3,
+    userId: 2,
+    followerId: 2,
   },
   {
-    followedId: 3,
-    followerId: 1,
+    userId: 2,
+    followerId: 3,
   },
 ];
 

@@ -26,7 +26,6 @@ model User {
   history      history[]      @relation("creator")
   sellers      history[]      @relation("seller")
   buyers       history[]      @relation("buyer")
-  following    Relationship[] @relation("following")
   followers    Relationship[] @relation("follower")
   Campaigns    Campaign[]
   Collections  Collection[]
@@ -72,7 +71,7 @@ model Chain {
 
 model Crypto {
   id              Int           @id @default(autoincrement())
-  tokenStandardId Int           @map("token_standard_id") @default(2)
+  tokenStandardId Int           @default(2) @map("token_standard_id")
   tokenstandard   TokenStandard @relation(fields: [tokenStandardId], references: [id])
   chainId         Int           @map("chain_id")
   chain           Chain         @relation(fields: [chainId], references: [id])
@@ -193,13 +192,11 @@ model history {
 
 model Relationship {
   id         Int      @id @default(autoincrement())
-  followedId Int      @map("followed_id") // this user following someone
-  following  User     @relation("following", fields: [followedId], references: [id])
-  followerId Int      @map("follower_id") // someone following this user
+  userId     Int      @map("user_id")
+  User       User     @relation(fields: [userId], references: [id])
+  followerId Int      @map("follower_id") // Who following this user
   follower   User     @relation("follower", fields: [followerId], references: [id])
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp(0)
-  User       User?    @relation(fields: [userId], references: [id])
-  userId     Int?
 
   @@map("relationships")
 }
