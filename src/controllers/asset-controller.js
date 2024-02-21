@@ -7,9 +7,14 @@ const uploadService = require("../services/uploadCloud-service");
 const fs = require("fs");
 
 
-exports.getAllNftController = catchError(async (req,res,next) => {
-  console.log(req.params.assetId)
+exports.getCountNftController = catchError(async (req,res,next) => {
+const result = await assetModel.getAllNft()
 
+res.status(200).json(result)
+
+})
+
+exports.getNftController = catchError(async (req,res,next) => {
   const result = await assetModel.getNftByNftId(+req.params.assetId)
 
 

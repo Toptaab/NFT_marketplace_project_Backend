@@ -8,6 +8,7 @@ const multerService = require('../services/multerImage-service')
 
 router.get('/', collectionController.getAllCollectionController )
 router.get('/createNft',authenticate, collectionController.getCollectionByUserIdController )
+router.get('/:collectionId',authenticate,collectionController.getCollectionByCollectionIdController)
 router.post('/' , createCollectionValidate, authenticate , collectionController.createdCollectionController )
 router.patch('/:collectionId/image' ,multerService.single('image'),authenticate    ,collectionController.updateCollectionImageController )
 router.patch('/:collectionId/startmint',authenticate,collectionController.startMintCollectionController  )

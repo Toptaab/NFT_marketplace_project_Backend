@@ -1,5 +1,8 @@
 const prisma = require("../api");
 
+
+exports.getCollectionByCollectionId = (id) => prisma.collection.findFirst({where:{id},include:{creator:true,Nfts:{include:{SaleList:true}},chain:true,history:{orderBy:{price:"desc"}}}})
+
 exports.getAllColletion = () => prisma.collection.findMany({include: {Nfts: {include: {SaleList: true}}}})
 
 exports.getCollectionByUserId = (creatorId) =>  prisma.collection.findMany({where:{creatorId},include:{Traits:true}})
@@ -34,4 +37,3 @@ exports.checkCollectionByUserId = (creatorId,id) => prisma.collection.findFirst(
 
 exports.updateCollectionById = (id,image) => prisma.collection.update({data:{image},where:{id}})
 
-exports.getCollectionByCollectionId = (id) => prisma.collection.findFirst({where:{id}})

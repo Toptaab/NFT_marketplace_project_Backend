@@ -1,10 +1,14 @@
 const prisma = require("../api");
 
+
+exports.getAllNft = () => prisma.nft.aggregate({_count:{id:true}})
+
+
 exports.getNftByNftId = (id) => prisma.nft.findFirst({where:{id},include:{creator:true,collection:true,chain:true,history:true,wallet:{include:{user:true}},SaleList:true,TraitAttributes:{include:{trait:true}} }})
 
 
 
-exports.getAllNftByCollectionId = (collectionId) => prisma.nft.findMany({where:{collectionId},orderBy:{tokenId:"desc"}})
+exports.getAllNftByCollectionId = (collectionId) => prisma.nft.findMany({where:{collectionId}})
 
 
 exports.createNft = (data) => prisma.nft.create({

@@ -10,6 +10,7 @@ const authRouter = require('./routes/auth-route')
 const userRouter = require('./routes/user-route')
 const assetRouter = require('./routes/asset-route')
 const collectionRouter = require('./routes/collection-route')
+const historyRouter = require('./routes/history-route')
 const errorHandler = require('./middlewares/error')
 
 app.use(cors());
@@ -20,6 +21,7 @@ app.use('/auth',authRouter)
 app.use('/user', userRouter)
 app.use('/asset', assetRouter)
 app.use('/collection', collectionRouter)
+app.use('/history',historyRouter)
 
 
 

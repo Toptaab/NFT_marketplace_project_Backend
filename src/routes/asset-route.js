@@ -5,9 +5,11 @@ const assetController = require('../controllers/asset-controller')
 const multerService = require('../services/multerImage-service')
 
 
-router.get('/:assetId',assetController.getAllNftController)
+
 router.post('/', authorization, assetController.createNft)
-router.patch('/:nftId/image',multerService.single('image'), authorization, assetController.updateNftImage)
+router.get('/count',assetController.getCountNftController)
+router.get('/:assetId',assetController.getNftController)
 router.post('/:nftId', authorization, assetController.sellNftController)
+router.patch('/:nftId/image',multerService.single('image'), authorization, assetController.updateNftImage)
 
 module.exports = router

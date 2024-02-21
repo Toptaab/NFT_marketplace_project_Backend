@@ -4,6 +4,13 @@ const userModel = require("../models/user-model");
 const createError = require("../utils/createError");
 
 
+exports.getCountUserController = catchError(async(req,res,next)=>{
+const result = await userModel.getCountUser()
+
+
+  res.status(200).json(result)
+} )
+
 exports.getMeController = catchError(async (req,res,next) => {
   const result = await userModel.getMe(req.body.userId)
 

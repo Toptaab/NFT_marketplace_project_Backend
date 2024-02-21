@@ -1,6 +1,8 @@
 const prisma = require("../api");
 
 
+exports.getCountUser = () => prisma.user.aggregate({_count:{id:true}})
+
 exports.getMe = (id) => prisma.user.findFirst({where:{id}})
 
 exports.createUser = (data) =>
