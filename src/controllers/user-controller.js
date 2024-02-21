@@ -3,6 +3,13 @@ const hashService = require("../services/hash-service");
 const userModel = require("../models/user-model");
 const createError = require("../utils/createError");
 
+
+exports.getMeController = catchError(async (req,res,next) => {
+  const result = await userModel.getMe(req.body.userId)
+
+  res.status(200).json(result)
+})
+
 exports.getAllAssetsController = catchError(async (req, res, next) => {
   const result = await userModel.getAllAssetsUserByUserId(+req.params.targetId);
 

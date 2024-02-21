@@ -16,8 +16,9 @@ exports.createCollection = async (data) =>
       price: data.price,
       chainid: data.chainid,
       description: data.description,
+      categoryId: data.categoryId,
       Traits: {
-        create: data.traits,
+        create: data.Traits,
       },
     },
   });

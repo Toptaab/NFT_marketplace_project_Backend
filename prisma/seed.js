@@ -80,28 +80,24 @@ const wallet = [
 
 const crypto = [
   {
-    tokenStandardId: 1,
     chainId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     name: "Ethereum",
     balance: 730.55,
   },
   {
-    tokenStandardId: 1,
     chainId: 1,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     name: "Ethereum",
     balance: 520.55,
   },
   {
-    tokenStandardId: 1,
     chainId: 1,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     name: "Ethereum",
     balance: 350.35,
   },
   {
-    tokenStandardId: 1,
     chainId: 1,
     walletAddress: "0x241d73809Dc4e3ff1E198F570C944c18F5E96cA8",
     name: "Ethereum",
@@ -185,7 +181,6 @@ const nfts = [
   {
     collectionId: 1,
     name: "top 1st NFT",
-    tokenId: 1,
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     image:
@@ -194,7 +189,6 @@ const nfts = [
   {
     collectionId: 1,
     name: "top 2nd NFT",
-    tokenId: 1,
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     image:
@@ -203,7 +197,6 @@ const nfts = [
   {
     collectionId: 1,
     name: "top 3rd NFT",
-    tokenId: 1,
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     image:
@@ -212,7 +205,6 @@ const nfts = [
   {
     collectionId: 1,
     name: "top 4th NFT",
-    tokenId: 1,
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     image:
@@ -221,7 +213,6 @@ const nfts = [
   {
     collectionId: 1,
     name: "top 5th NFT",
-    tokenId: 1,
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     image:
@@ -230,7 +221,6 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 1th NFT",
-    tokenId: 1,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -239,7 +229,6 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 2nd NFT",
-    tokenId: 1,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -248,7 +237,6 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 3rd NFT",
-    tokenId: 1,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -257,7 +245,6 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 4th NFT",
-    tokenId: 1,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -266,7 +253,6 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 5th NFT",
-    tokenId: 1,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -275,7 +261,6 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 1th NFT",
-    tokenId: 1,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -284,7 +269,6 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 2nd NFT",
-    tokenId: 1,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -293,7 +277,6 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 3rd NFT",
-    tokenId: 1,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -302,7 +285,6 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 4th NFT",
-    tokenId: 1,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -311,7 +293,6 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 5th NFT",
-    tokenId: 1,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:

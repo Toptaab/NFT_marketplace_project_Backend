@@ -11,7 +11,6 @@ res.status(200).json(result)
 })
 
 exports.getCollectionByUserIdController = catchError(async (req,res,next) => {
-  console.log(req.body)
 const result = await collectionModel.getCollectionByUserId(req.body.userId)
 
 
@@ -28,6 +27,8 @@ exports.createdCollectionController = catchError(async (req, res, next) => {
   }
 
   const result = await collectionModel.createCollection(req.body);
+
+  
   res.status(200).json(result);
 });
 
@@ -96,6 +97,5 @@ exports.startMintCollectionController = catchError(async (req, res, next) => {
 // });
 
 exports.mintNftFromCollectionController = catchError (async (req,res,next)=> {
-  console.log(req.body)
 
 })

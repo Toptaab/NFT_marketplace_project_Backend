@@ -3,12 +3,13 @@ const validate = require("./validater-service");
 
 const createCollectionSchema = Joi.object({
   name: Joi.string().required().trim().message({
-    "string.empty": "email address is required",
-    "any.required": "email address is required",
+    "string.empty": "name address is required",
+    "any.required": "name address is required",
   }),
   price: Joi.number().positive().precision(2).required(),
   chainId: Joi.required(),
-  traits: Joi.any()
+  Traits: Joi.any(),
+  categoryId: Joi.number()
 });
 
 // const updateCollectionJoi

@@ -11,8 +11,7 @@ module.exports =  authenticate = catchError (async (req,res,next) => {
 
     const token = getAuthorization(req.headers.authorization)
     const user = jwt.validateUser(token)
-    console.log(req.headers.authorization)
-    console.log(user)
+
     req.body.userId = +user
 
     next()

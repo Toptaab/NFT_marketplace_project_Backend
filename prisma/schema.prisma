@@ -11,26 +11,27 @@ datasource db {
 }
 
 model User {
-  id          Int            @id @default(autoincrement())
-  userName    String         @map("user_name") @db.VarChar(40)
-  email       String         @db.VarChar(40)
-  password    String         @db.VarChar(72)
-  image       String?
-  isAdmin     Boolean        @default(false) @map("is_admin")
-  bio         String?        @db.Text
-  twitterUrl  String?        @map("twitter_url") @db.VarChar(191)
-  isVerify    Boolean        @default(false) @map("is_verify")
-  createdAt   DateTime       @default(now()) @map("created_at") @db.Timestamp(0)
-  Wallets     Wallet[]
-  Nfts        Nft[]
-  history     history[]      @relation("creator")
-  sellers     history[]      @relation("seller")
-  buyers      history[]      @relation("buyer")
-  followeds   Relationship[] @relation("followed")
-  followers   Relationship[] @relation("follower")
-  Campaigns   Campaign[]
-  Collections Collection[]
-  SaleLists   SaleList[]
+  id           Int            @id @default(autoincrement())
+  userName     String         @map("user_name") @db.VarChar(40)
+  email        String         @db.VarChar(40)
+  password     String         @db.VarChar(72)
+  image        String?
+  isAdmin      Boolean        @default(false) @map("is_admin")
+  bio          String?        @db.Text
+  twitterUrl   String?        @map("twitter_url") @db.VarChar(191)
+  isVerify     Boolean        @default(false) @map("is_verify")
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamp(0)
+  Wallets      Wallet[]
+  Nfts         Nft[]
+  history      history[]      @relation("creator")
+  sellers      history[]      @relation("seller")
+  buyers       history[]      @relation("buyer")
+  following    Relationship[] @relation("following")
+  followers    Relationship[] @relation("follower")
+  Campaigns    Campaign[]
+  Collections  Collection[]
+  SaleLists    SaleList[]
+  Relationship Relationship[]
 
   @@map("users")
 }
@@ -71,7 +72,7 @@ model Chain {
 
 model Crypto {
   id              Int           @id @default(autoincrement())
-  tokenStandardId Int           @map("token_standard_id")
+  tokenStandardId Int           @map("token_standard_id") @default(2)
   tokenstandard   TokenStandard @relation(fields: [tokenStandardId], references: [id])
   chainId         Int           @map("chain_id")
   chain           Chain         @relation(fields: [chainId], references: [id])
@@ -95,7 +96,6 @@ model Nft {
   creator         User             @relation(fields: [creatorId], references: [id])
   tokenStandardId Int              @default(1) @map("token_standard_id")
   tokenstandard   TokenStandard    @relation(fields: [tokenStandardId], references: [id])
-  tokenId         Int              @map("token_id")
   name            String           @db.VarChar(40)
   image           String?
   isOnSale        Boolean          @default(false) @map("is_onsale")
@@ -113,7 +113,7 @@ model Category {
   name       String
   Collection Collection[]
 
-  @@map("catagory")
+  @@map("category")
 }
 
 model Collection {
@@ -193,11 +193,13 @@ model history {
 
 model Relationship {
   id         Int      @id @default(autoincrement())
-  followedId Int      @map("followed_id") // this user follow someone
-  followed   User     @relation("followed", fields: [followedId], references: [id])
-  followerId Int      @map("follower_id") // someone follow this user
+  followedId Int      @map("followed_id") // this user following someone
+  following  User     @relation("following", fields: [followedId], references: [id])
+  followerId Int      @map("follower_id") // someone following this user
   follower   User     @relation("follower", fields: [followerId], references: [id])
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     Int?
 
   @@map("relationships")
 }

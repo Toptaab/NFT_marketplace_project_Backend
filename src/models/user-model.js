@@ -1,5 +1,8 @@
 const prisma = require("../api");
 
+
+exports.getMe = (id) => prisma.user.findFirst({where:{id}})
+
 exports.createUser = (data) =>
   prisma.user.create({
     data,
