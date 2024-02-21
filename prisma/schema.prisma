@@ -98,7 +98,6 @@ model Nft {
   name            String           @db.VarChar(40)
   image           String?
   isOnSale        Boolean          @default(false) @map("is_onsale")
-  isMint          Boolean          @default(false) @map("is_mint")
   createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamp(0)
   TraitAttributes TraitAttribute[]
   SaleList        SaleList[]
@@ -127,8 +126,6 @@ model Collection {
   price       Decimal   @db.Decimal(65, 2)
   name        String    @db.VarChar(40)
   description String?
-  onMint      Boolean   @default(false) @map("on_mint")
-  isSoldout   Boolean   @default(false) @map("is_soldout")
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
   Nfts        Nft[]
