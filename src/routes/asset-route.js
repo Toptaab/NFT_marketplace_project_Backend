@@ -9,7 +9,10 @@ const multerService = require('../services/multerImage-service')
 router.post('/', authorization, assetController.createNft)
 router.get('/count',assetController.getCountNftController)
 router.get('/:assetId',assetController.getNftController)
-router.post('/:nftId', authorization, assetController.sellNftController)
-router.patch('/:nftId/image',multerService.single('image'), authorization, assetController.updateNftImage)
+router.post('/:assetId', authorization, assetController.sellNftController)
+router.put('/:assetId', authorization, assetController.buyNftController)
+router.delete('/:assetId/cancel', authorization, assetController.cancelSaleNftController)
+router.patch('/:assetId/update',authorization, assetController.updatePriceController)
+router.patch('/:assetId/image',multerService.single('image'), authorization, assetController.updateNftImage)
 
 module.exports = router

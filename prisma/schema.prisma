@@ -97,7 +97,7 @@ model Nft {
   tokenstandard   TokenStandard    @relation(fields: [tokenStandardId], references: [id])
   name            String           @db.VarChar(40)
   image           String?
-  isOnSale        Boolean          @default(false) @map("is_onsale")
+  isOnsale        Boolean          @default(false) @map("is_onsale")
   createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamp(0)
   TraitAttributes TraitAttribute[]
   SaleList        SaleList[]
@@ -160,7 +160,7 @@ model SaleList {
   id        Int      @id @default(autoincrement())
   sellerId  Int      @map("seller_id")
   seller    User     @relation(fields: [sellerId], references: [id])
-  nftId     Int      @map("nft_id")
+  nftId     Int      @map("nft_id") @unique
   nft       Nft      @relation(fields: [nftId], references: [id])
   price     Decimal  @db.Decimal(65, 2)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)

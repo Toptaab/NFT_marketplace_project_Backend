@@ -54,4 +54,8 @@ exports.getWalletByWalletAddress = (walletAddress) =>
   prisma.wallet.findFirst({ where: { walletAddress } });
 
 exports.getWalletByUserId = (userId) =>
-  prisma.wallet.findFirst({ where: { userId } });
+  prisma.wallet.findFirst({ where: { userId },include:{Cryptos:true} });
+
+
+
+exports.updateBalanceByWalletAddress = (id,balance) => prisma.crypto.update({where:{id},data:{balance}})

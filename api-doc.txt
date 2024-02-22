@@ -187,7 +187,7 @@ RESPONSE
 
 
 
-POST asset/:nftId        put nft on sale list
+POST asset/:assetId        put nft on sale list
 HEADER
   AUTHORIZATION           Bearer [JWT]
 BODY
@@ -200,7 +200,7 @@ REPONSE
   500 { message: 'internal server error' }
 
 
-  PATCH asset/:nftId      update price nft
+  PATCH asset/:assetId      update price nft
 HEADER
   AUTHORIZATION           Bearer [JWT]
 BODY
@@ -213,7 +213,7 @@ REPONSE
   500 { message: 'internal server error' }
 
 
-DELETE asset/:nftId       cancel nft from sale list
+DELETE asset/:assetId       cancel nft from sale list
 HEADER
   AUTHORIZATION           Bearer [JWT]
 REPONSE
@@ -223,7 +223,7 @@ REPONSE
 
 
 
-POST asset/:nftId/buy      buy NFT from sale list
+POST asset/:assetId/buy      buy NFT from sale list
 HEADER
   AUTHORIZATION           Bearer [JWT]
 REPONSE

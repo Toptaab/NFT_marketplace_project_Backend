@@ -180,6 +180,7 @@ const tratis = [
 const nfts = [
   {
     collectionId: 1,
+    isOnsale: true,
     name: "top 1st NFT",
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
@@ -189,6 +190,7 @@ const nfts = [
   {
     collectionId: 1,
     name: "top 2nd NFT",
+    isOnsale: true,
     creatorId: 1,
     walletAddress: "0xa34f4F6f3454b1DC730FA9C86e75763283497582",
     image:
@@ -221,6 +223,7 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 1th NFT",
+    isOnsale: true,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -229,6 +232,7 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 2nd NFT",
+    isOnsale: true,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -237,6 +241,7 @@ const nfts = [
   {
     collectionId: 2,
     name: "first 3rd NFT",
+    isOnsale: true,
     creatorId: 2,
     walletAddress: "0x1EbCE9218c05d0c2A3575d29Fc8F8b0f05ABAF9a",
     image:
@@ -261,6 +266,7 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 1th NFT",
+    isOnsale: true,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -269,6 +275,7 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 2nd NFT",
+    isOnsale: true,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -277,6 +284,7 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 3rd NFT",
+    isOnsale: true,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
@@ -285,6 +293,7 @@ const nfts = [
   {
     collectionId: 3,
     name: "user1 4th NFT",
+    isOnsale: true,
     creatorId: 3,
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
