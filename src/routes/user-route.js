@@ -7,8 +7,9 @@ const { validateUpdateProfile } = require('../middlewares/validators/validate-us
 
 
 router.get('/',authenticate,userController.getMeController )
+router.get('/allUser',userController.getAllUserController )
 router.get('/count', userController.getCountUserController)
-router.get('/:targetId',authenticate,userController.getAllAssetsController)
+router.get('/:targetId',userController.getAllAssetsController)
 router.post('/wallet',authenticate , userController.createWalletController )
 router.patch('/',validateUpdateProfile, authenticate , userController.updateUserPofileController )
 

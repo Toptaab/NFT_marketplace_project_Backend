@@ -7,8 +7,15 @@ const uploadService = require("../services/uploadCloud-service");
 const fs = require("fs");
 const { removeBalance, addBalance } = require("../utils/calculateBalance");
 
+exports.getAllNftController = catchError(async (req,res,next) =>{
+const result = await assetModel.getAllNft()
+
+  res.status(200).json(result)
+})
+
+
 exports.getCountNftController = catchError(async (req, res, next) => {
-  const result = await assetModel.getAllNft();
+  const result = await assetModel.getAllNftCount();
 
   res.status(200).json(result);
 });

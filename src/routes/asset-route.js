@@ -7,6 +7,7 @@ const multerService = require('../services/multerImage-service')
 
 
 router.post('/', authorization, assetController.createNft)
+router.get('/',assetController.getAllNftController)
 router.get('/count',assetController.getCountNftController)
 router.get('/:assetId',assetController.getNftController)
 router.post('/:assetId', authorization, assetController.sellNftController)

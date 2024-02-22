@@ -1,5 +1,7 @@
 const prisma = require("../api");
 
+exports.getAllUser = () => prisma.user.findMany({include:{Wallets:{select:{Cryptos:{select:{balance:true}}}},_count:{select:{history:true,Nfts:true,Collections:true,followers:true}}}})
+
 
 exports.getCountUser = () => prisma.user.aggregate({_count:{id:true}})
 
@@ -27,7 +29,7 @@ exports.getAllAssetsUserByUserId = (input) =>
   prisma.user.findFirst({
     where: { id: input },
     include: {
-      Wallets: { include: { Cryptos: { include: { chain: true } } } },
+      Wallets: { include: { Cryptos: { include: { chain: true } },Nfts:{include:{collection:true,SaleList:true}} } },
       Nfts: true,
       history: true,
       sellers: true,
