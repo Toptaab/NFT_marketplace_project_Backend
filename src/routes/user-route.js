@@ -13,6 +13,7 @@ router.get('/count', userController.getCountUserController)
 router.get('/:targetId',userController.getAllAssetsController)
 router.post('/wallet',authenticate , userController.createWalletController )
 router.patch('/',validateUpdateProfile, authenticate , userController.updateUserPofileController )
+router.patch('/add', authenticate , userController.addBalanceController )
 router.patch('/image',multerImageService.single('image'),validateUpdateProfile, authenticate , userController.updateUserPofileImageController )
 
 

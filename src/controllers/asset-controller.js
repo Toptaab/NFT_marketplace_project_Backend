@@ -7,6 +7,8 @@ const uploadService = require("../services/uploadCloud-service");
 const fs = require("fs");
 const { removeBalance, addBalance } = require("../utils/calculateBalance");
 
+
+
 exports.getAllNftController = catchError(async (req,res,next) =>{
 const result = await assetModel.getAllNft()
 
@@ -40,7 +42,20 @@ exports.createNft = catchError(async (req, res, next) => {
   );
   req.body.chainId = chainId;
 
-  const result = await assetModel.createNft(req.body);
+  let result;
+console.log(req.body.TraitAttributes.length > 0)
+
+//  if(req.body.TraitAttributes.length > 0){
+  
+//   }
+//   else{ 
+//     delete req.body.TraitAttributes
+//     delete req.body.tokenId
+
+//     result = await assetModel.createNftwithNotraits(req.body)
+//   }
+
+  result = await assetModel.createNftWithTraits(req.body)
 
   res.status(200).json(result);
 });

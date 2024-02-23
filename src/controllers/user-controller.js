@@ -5,8 +5,21 @@ const createError = require("../utils/createError");
 const uploadService = require("../services/uploadCloud-service");
 const fs = require("fs");
 
+
+exports.addBalanceController = catchError(async (req,res,next) => {
+
+const wallet = await userModel.getWalletByUserId(req.body.userId)
+
+const newBalance = +wallet?.Cryptos[0]?.balance + +req.body.balance
+
+
+const result =  await userModel.updateBalanceByWalletAddress(wallet?.Cryptos[0]?.id,newBalance)
+
+
+  res.status(200).json(result);
+})
+
 exports.getAllUserController = catchError(async (req, res, next) => {
-  console.log("xxxxxxxxxxxxxxxxxxx");
   const result = await userModel.getAllUser();
 
   res.status(200).json(result);

@@ -70,15 +70,15 @@ model Chain {
 }
 
 model Crypto {
-  id              Int           @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   tokenStandardId Int?           @default(2) @map("token_standard_id")
   tokenstandard   TokenStandard? @relation(fields: [tokenStandardId], references: [id])
-  chainId         Int?           @map("chain_id") @default(1)
+  chainId         Int?           @default(1) @map("chain_id")
   chain           Chain?         @relation(fields: [chainId], references: [id])
-  walletAddress   String        @map("wallet_address")
-  wallet          Wallet        @relation(fields: [walletAddress], references: [walletAddress])
-  name            String        @db.VarChar(40) @default("Ethereum")
-  balance         Decimal       @db.Decimal(65, 2)
+  walletAddress   String         @map("wallet_address")
+  wallet          Wallet         @relation(fields: [walletAddress], references: [walletAddress])
+  name            String         @default("Ethereum") @db.VarChar(40)
+  balance         Decimal        @db.Decimal(65, 2)
 
   @@map("cryptos")
 }
@@ -160,7 +160,7 @@ model SaleList {
   id        Int      @id @default(autoincrement())
   sellerId  Int      @map("seller_id")
   seller    User     @relation(fields: [sellerId], references: [id])
-  nftId     Int      @map("nft_id") @unique
+  nftId     Int      @unique @map("nft_id")
   nft       Nft      @relation(fields: [nftId], references: [id])
   price     Decimal  @db.Decimal(65, 2)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
