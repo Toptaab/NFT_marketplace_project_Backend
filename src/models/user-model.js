@@ -35,11 +35,11 @@ exports.getAllAssetsUserByUserId = (input) =>
       sellers: true,
       buyers: true,
       Relationship: true,
-      Collections: {include: {Nfts: {include: {SaleList: true}}}},
+      Collections: {include: {Nfts: {include: {SaleList: true}},category:true,history:true}},
     },
   });
 
-exports.createWallet = (data) => prisma.wallet.create({ data });
+exports.createWallet = (walletAddress,userId) => prisma.wallet.create({ data:{walletAddress,userId,Cryptos:{create:[{balance: 0}]}} });
 
 exports.getUserByUserId = (id) =>
   prisma.user.findFirst({

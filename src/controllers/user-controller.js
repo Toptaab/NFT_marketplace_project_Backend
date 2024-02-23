@@ -2,27 +2,27 @@ const catchError = require("../utils/catch-error");
 const hashService = require("../services/hash-service");
 const userModel = require("../models/user-model");
 const createError = require("../utils/createError");
+const uploadService = require("../services/uploadCloud-service");
+const fs = require("fs");
 
+exports.getAllUserController = catchError(async (req, res, next) => {
+  console.log("xxxxxxxxxxxxxxxxxxx");
+  const result = await userModel.getAllUser();
 
-exports.getAllUserController = catchError(async(req,res,next)=> {
-const result = await userModel.getAllUser()
+  res.status(200).json(result);
+});
 
+exports.getCountUserController = catchError(async (req, res, next) => {
+  const result = await userModel.getCountUser();
 
-  res.status(200).json(result)
-})
+  res.status(200).json(result);
+});
 
-exports.getCountUserController = catchError(async(req,res,next)=>{
-const result = await userModel.getCountUser()
+exports.getMeController = catchError(async (req, res, next) => {
+  const result = await userModel.getMe(req.body.userId);
 
-
-  res.status(200).json(result)
-} )
-
-exports.getMeController = catchError(async (req,res,next) => {
-  const result = await userModel.getMe(req.body.userId)
-
-  res.status(200).json(result)
-})
+  res.status(200).json(result);
+});
 
 exports.getAllAssetsController = catchError(async (req, res, next) => {
   const result = await userModel.getAllAssetsUserByUserId(+req.params.targetId);
@@ -32,11 +32,18 @@ exports.getAllAssetsController = catchError(async (req, res, next) => {
 });
 
 exports.createWalletController = catchError(async (req, res, next) => {
-  const existWallet = await userModel.getWalletByWalletAddress(req.body.walletAddress)
+  const existWallet = await userModel.getWalletByWalletAddress(
+    req.body.walletAddress
+  );
 
-  if(existWallet){createError(402,"this wallet already has been used")}
+  if (existWallet) {
+    createError(402, "this wallet already has been used");
+  }
 
-  const result = await userModel.createWallet(req.body);
+  const result = await userModel.createWallet(
+    req.body.walletAddress,
+    req.body.userId
+  );
 
   res.status(200).json(result);
 });
@@ -70,6 +77,8 @@ exports.updateUserPofileController = catchError(async (req, res, next) => {
     createError(401, "invalid password");
   }
 
+  console.log(req.body);
+
   delete req.body.password;
   delete req.body.userId;
   delete req.body.user;
@@ -77,6 +86,39 @@ exports.updateUserPofileController = catchError(async (req, res, next) => {
   const result = await userModel.updateUser(user.id, req.body);
 
   delete result.password;
+
+  res.status(200).json(result);
+});
+
+exports.updateUserPofileImageController = catchError(async (req, res, next) => {
+
+
+  req.body.image = await uploadService.uploadCloud(
+    req.file.path,
+    "NFT-marketplace/profilePicture"
+  );
+
+  const user = await userModel.getUserByUserId(req.body.userId);
+
+
+  const passwordCheck = await hashService.comparePassword(
+    req.body.password,
+    user.password
+  );
+  if (!passwordCheck) {
+    createError(401, "invalid password");
+  }
+
+
+
+  delete req.body.password;
+  delete req.body.userId;
+  
+
+
+  const result = await userModel.updateUser(user.id, req.body);
+
+  fs.unlink(req.file.path, () => {});
 
   res.status(200).json(result);
 });
