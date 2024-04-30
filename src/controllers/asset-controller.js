@@ -52,7 +52,7 @@ console.log(req.body.TraitAttributes.length > 0)
 //     delete req.body.TraitAttributes
 //     delete req.body.tokenId
 
-//     result = await assetModel.createNftwithNotraits(req.body)
+    // result = await assetModel.createNftwithNotraits(req.body)
 //   }
 
   result = await assetModel.createNftWithTraits(req.body)

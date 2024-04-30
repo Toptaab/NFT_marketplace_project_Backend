@@ -28,25 +28,16 @@ exports.getNftByNftId = (id) =>
 exports.getAllNftByCollectionId = (collectionId) =>
   prisma.nft.findMany({ where: { collectionId } });
 
-exports.createNftwithNotraits = (data) =>
-  prisma.nft.create({
-    data: {
-      wallwalletAddresset: data.walletAddress,
-      chainId: data.chainId,
-      creatorId: data.userId,
-      name: data.name,
-      collection: {
-        connectOrCreate: [
-          {
-            create: { id: 1 },
-            where: {
-              id: 1,
-            },
-          },
-        ],
-      },
-    },
-  });
+// exports.createNftwithNotraits = (data) =>
+//   prisma.nft.create({
+//     data: {
+//       collectionId: data.collectionId
+//       wallwalletAddresset: data.walletAddress,
+//       chainId: data.chainId,
+//       creatorId: data.userId,
+//       name: data.name,
+//     })
+
 // exports.createNftwithNotraits2 = (data) => prisma.nft.create({data:{
 //     collectionId: data.collectionId,
 //     wallwalletAddresset: data.walletAddress,

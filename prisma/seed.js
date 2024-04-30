@@ -144,6 +144,26 @@ const collections = [
     image:
       "https://assets.raribleuserdata.com/prod/v1/image/t_avatar_big/aHR0cHM6Ly9pcGZzLnJhcmlibGV1c2VyZGF0YS5jb20vaXBmcy9RbWQzejR4Z0c0UHpHU3JXa1FaakxRcjlwUUFVa3lKdUJUUThtbmFOcUp1Tk5r",
   },
+  {
+    name: "Spong Club",
+    price: "10.13",
+    chainId: 1,
+    categoryId: 2,
+    creatorId: 3,
+    description: "The club for fun",
+    image:
+      "https://v5.airtableusercontent.com/v3/u/26/26/1708696800000/E8_FHP6O4KjHerL4WNQYHw/EkODAUOE-BlNpZ1YOZhShJHouxi_32J-WMJlc5i3q8EckMXeRwT6OTLR-2iQdJTzLCPaBh3IhqKdMzRmRcv61f3Z94D64MnpxBdLHIDjRuLWm4ay0FhTHobMBYWRxTgLde3PTmU1rX-Chs6NN5Ju6Q/W7hAPyE7eFtehTaVOVXqyKFn_i-W-AL2ejel1RXv3AE",
+  },
+  {
+    name: "Tomato potato",
+    price: "10.13",
+    chainId: 1,
+    categoryId: 3,
+    creatorId: 3,
+    description: "Enjoy your life",
+    image:
+      "https://v5.airtableusercontent.com/v3/u/26/26/1708696800000/6o1XSuKUeYyCh23nfIiPlA/thbUoAT5gS8iXoNk0jmXrP7Q7sQf0ZwJeFR2pbWv01PWCuuaoUpVqeNIaz6iQ-KDy1C2JuxIAGFUQD1_Dvh0ocIm3DNjtBl6bRDoAmE2iCS2xXVvKJYjckT6938kAEUFFwb7NO1b9-j-b-0Ypn8Ehw/VQkz4jl4VSzWFn7l3-DYG8612t8bLixEIwMuokN1mh8",
+  },
 ];
 
 const tratis = [
@@ -306,6 +326,38 @@ const nfts = [
     walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
     image:
       "https://lh3.googleusercontent.com/He1YsG_OojwGiQv_K6zwytUIiWbiuoLO9wMhE9C2byQT3hEK7SxNvZCn8SBbfykdUIIPwPw8CB1So7CGTjzzgTWJlL5x8zqB6iOt=s400",
+  },
+  {
+    collectionId: 4,
+    name: "game 1th NFT",
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://i.seadn.io/gcs/files/3c270f6f1748e2d5a84a64cba82eaecf.webp?auto=format&dpr=1&w=384",
+  },
+  {
+    collectionId: 4,
+    name: "game 2th NFT",
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://i.seadn.io/gcs/files/7f4b03e25819510899716624eaf95c12.webp?auto=format&dpr=1&w=384",
+  },
+  {
+    collectionId: 5,
+    name: "Jomajo 1th NFT",
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://i.seadn.io/gae/f6-DGwJLPJ982Z-Q25gIl0arWYSbMBqm5nO9RZ9Br0aJsVZs-SR21nQ8OAFmxGxPEamelRSy1ndvIs9PJl49gKGGvIevnhMDTNjWdQ?auto=format&dpr=1&w=384",
+  },
+  {
+    collectionId: 5,
+    name: "Jomajo 2th NFT",
+    creatorId: 3,
+    walletAddress: "0x2F7f119cD419AF18F8805661A4B3bB32612ce878",
+    image:
+      "https://i.seadn.io/gae/jOXx6OxuNGAEuG_NEJ0ZD-7uCq7W1SlAgILiX6Z93RGXEhoWH3U9T0-CJ3kiCfNxVwFr7U22Cy09ZrDGzKeiPLGsZCWJnHL07pkTvg?auto=format&dpr=1&w=384",
   },
 ];
 
